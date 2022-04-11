@@ -6,6 +6,8 @@
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
+    "devextreme": "21.2",
+    "devextreme-react": "21.2",
     "immer-reducer": "^0.7.13",
     "leaflet": "^1.7.1",
     "react": "^17.0.2",
