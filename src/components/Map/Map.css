@@ -1,0 +1,8 @@
+.map {
+    width: 50vw;
+    height: 10vh;
+}
+
+.leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {
+    display: none;
+}
