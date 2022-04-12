@@ -9,7 +9,6 @@ const TableReq = (props) => {
   const dispatch = useDispatch()
 
   const select = (e) => {
-    console.log(e)
     props.setPoints({
       fromLat: e.selectedRowsData[0].latitudeFrom,
       fromLong: e.selectedRowsData[0].longitudeFrom,

@@ -3,7 +3,6 @@ import { UPDATE_DATA } from './actions'
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case UPDATE_DATA:
-      console.log(111, action.payload)
       const foundIndex = state.data.findIndex(
         (el) => el.id === action.payload.id
       )
