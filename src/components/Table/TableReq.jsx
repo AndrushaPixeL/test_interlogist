@@ -1,7 +1,13 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import DataGrid from 'devextreme-react/data-grid'
+import { columns, states } from './data'
+import { updateData } from '../../redux/actions'
+import './Table.css'
 
 const TableReq = (props) => {
+  const dispatch = useDispatch()
+
   const select = (e) => {
     console.log(e)
     props.setPoints({
@@ -11,55 +17,48 @@ const TableReq = (props) => {
       toLong: e.selectedRowsData[0].longitudeTo,
     })
   }
+
+  const save = (data) => {
+    const newStateFrom = states.find((el) => el.ID === data.cityFrom)
+    const newStateTo = states.find((el) => el.ID === data.cityTo)
+    const newData = {
+      id: data.id,
+      cityFrom: data.cityFrom,
+      cityTo: data.cityTo,
+      latitudeFrom: newStateFrom.latitude,
+      longitudeFrom: newStateFrom.longitude,
+      latitudeTo: newStateTo.latitude,
+      longitudeTo: newStateTo.longitude,
+    }
+    dispatch(updateData(newData))
+  }
+
   return (
-    <>
-      <>
-        <DataGrid
-          dataSource={props.data}
-          columns={columns}
-          allowColumnReordering={true}
-          allowColumnResizing={true}
-          columnAutoWidth={true}
-          keyExpr='id'
-          height={700}
-          columnFixing={{ enabled: true }}
-          editing={{
-            mode: 'cell',
-            startEditAction: 'dblClick',
-            allowUpdating: true,
-            allowDeleting: false,
-            confirmDelete: false,
-          }}
-          stateStoring={{ type: 'localStorage', storageKey: 'TableDataGrid' }}
-          hoverStateEnabled={true}
-          selection={{ mode: 'single' }}
-          onSelectionChanged={select}
-          showBorders={false}
-          showColumnLines={false}
-        ></DataGrid>
-      </>
-    </>
+    <div className='table_container' id='table'>
+      <DataGrid
+        width={'100%'}
+        height={'min-content'}
+        dataSource={props.data}
+        columns={columns}
+        allowColumnResizing={true}
+        columnAutoWidth={true}
+        keyExpr='id'
+        columnFixing={{ enabled: true }}
+        editing={{
+          mode: 'cell',
+          startEditAction: 'dblClick',
+          allowUpdating: true,
+          allowDeleting: false,
+          confirmDelete: false,
+        }}
+        hoverStateEnabled={true}
+        selection={{ mode: 'single' }}
+        onSelectionChanged={select}
+        showBorders={true}
+        showColumnLines={true}
+        onSaved={(e) => save(e.changes[0].data)}
+      />
+    </div>
   )
 }
 export default TableReq
-
-const columns = [
-  {
-    dataField: 'id',
-    name: '№',
-    caption: 'заявка №',
-    visibleIndex: 1,
-  },
-  {
-    dataField: 'cityFrom',
-    name: 'cityFrom',
-    caption: 'Из города',
-    visibleIndex: 2,
-  },
-  {
-    dataField: 'cityTo',
-    name: 'cityTo',
-    caption: 'В город',
-    visibleIndex: 3,
-  },
-]

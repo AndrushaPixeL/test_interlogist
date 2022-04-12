@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react'
 import { MapContainer, TileLayer } from 'react-leaflet'
-import RoutineMachine from './RoutineMachine'
 import L from 'leaflet'
+import RoutineMachine from './RoutineMachine'
 import 'leaflet/dist/leaflet.css'
 import './Map.css'
 
@@ -13,7 +13,7 @@ L.Icon.Default.mergeOptions({
   shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
 })
 
-function Map(props) {
+const Map = (props) => {
   const rMachine = useRef()
   useEffect(() => {
     if (rMachine.current) {
@@ -25,20 +25,19 @@ function Map(props) {
   }, [props, rMachine])
 
   return (
-    <div className='map'>
-      <MapContainer
-        doubleClickZoom={false}
-        id='mapId'
-        zoom={5}
-        center={[55.7522, 37.6156]}
-      >
-        <TileLayer
-          url='https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'
-          attribution='Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri'
-        />
-        <RoutineMachine ref={rMachine} waypoints={props.points} />
-      </MapContainer>
-    </div>
+    <MapContainer
+      doubleClickZoom={false}
+      id='mapId'
+      zoom={10}
+      center={[55.7522, 37.6156]}
+      className='map'
+    >
+      <TileLayer
+        url='https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'
+        attribution='Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri'
+      />
+      <RoutineMachine ref={rMachine} waypoints={props.points} />
+    </MapContainer>
   )
 }
 
