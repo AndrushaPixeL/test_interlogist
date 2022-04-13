@@ -1,11 +1,3 @@
-.map {
-  width: 500px;
-  height: 100%;
-}
-.leaflet-container {
-  width: 50vw !important;
-  height: 100vh;
-}
 .leaflet-touch .leaflet-control-layers,
 .leaflet-touch .leaflet-bar {
   display: none;

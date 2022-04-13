@@ -8,6 +8,7 @@ import './App.css'
 const App = () => {
   const data = useSelector((state) => state.data)
   const [points, setPoints] = useState(null)
+
   return (
     <div className='App'>
       <TableReq data={data} setPoints={setPoints} />

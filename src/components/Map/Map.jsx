@@ -15,8 +15,11 @@ L.Icon.Default.mergeOptions({
 
 const Map = (props) => {
   const rMachine = useRef()
+
   useEffect(() => {
-    if (rMachine.current) {
+    if (props.points === null && rMachine.current) {
+      rMachine.current.setWaypoints([])
+    } else if (rMachine.current) {
       rMachine.current.setWaypoints([
         L.latLng(props.points.fromLat, props.points.fromLong),
         L.latLng(props.points.toLat, props.points.toLong),
@@ -30,7 +33,7 @@ const Map = (props) => {
       id='mapId'
       zoom={10}
       center={[55.7522, 37.6156]}
-      className='map'
+      className='map_container'
     >
       <TileLayer
         url='https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'
